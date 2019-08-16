@@ -1,0 +1,112 @@
+<%= form_with(model: slack_user, local: true) do |form| %>
+  <% if slack_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(slack_user.errors.count, "error") %> prohibited this slack_user from being saved:</h2>
+
+      <ul>
+      <% slack_user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :slack_user_id %>
+    <%= form.text_field :slack_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_id %>
+    <%= form.text_field :team_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :real_name %>
+    <%= form.text_field :real_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :color %>
+    <%= form.text_field :color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tz %>
+    <%= form.text_field :tz %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tz_label %>
+    <%= form.text_field :tz_label %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tz_offset %>
+    <%= form.number_field :tz_offset %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_admin %>
+    <%= form.check_box :is_admin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_owner %>
+    <%= form.check_box :is_owner %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_primary_owner %>
+    <%= form.check_box :is_primary_owner %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_restricted %>
+    <%= form.check_box :is_restricted %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_ultra_restricted %>
+    <%= form.check_box :is_ultra_restricted %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_bot %>
+    <%= form.check_box :is_bot %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_stranger %>
+    <%= form.check_box :is_stranger %>
+  </div>
+
+  <div class="field">
+    <%= form.label :updated %>
+    <%= form.datetime_select :updated %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_app_user %>
+    <%= form.check_box :is_app_user %>
+  </div>
+
+  <div class="field">
+    <%= form.label :has_2fa %>
+    <%= form.check_box :has_2fa %>
+  </div>
+
+  <div class="field">
+    <%= form.label :locale %>
+    <%= form.text_field :locale %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
