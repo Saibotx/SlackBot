@@ -10,6 +10,9 @@ class SlackUserProfile < ApplicationRecord
       (Time.at(slack_params["status_expiration"])) : nil
 
     {
+      title: slack_params["title"],
+      phone: slack_params["phone"],
+      skype: slack_params["skype"],
       avatar_hash: slack_params["avatar_hash"],
       real_name: slack_params["real_name"],
       display_name: slack_params["display_name"],
