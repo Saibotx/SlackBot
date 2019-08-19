@@ -67,3 +67,8 @@ ngrok http 3000
 ```
 $ bundle exec rspec
 ```
+
+## Live Demo
+
+Currently this app is live and hosted on heroku [here](https://slack-users-challenge.herokuapp.com/)
+You can interact with the bot on my personal [Slack workspace](https://tobygu.slack.com/)
