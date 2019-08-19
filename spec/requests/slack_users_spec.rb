@@ -7,23 +7,24 @@ RSpec.describe "SlackUsers", type: :request do
 
   describe "GET /slack_users" do
 
-    before {get '/slack_users'}
+    before { get '/slack_users.json' }
 
     it "returns slack_users" do
       get slack_users_path
-      expect(response).not_to be_empty
+      puts "response is #{response}"
+      expect(response.body).not_to be_empty
       expect(response).to have_http_status(200)
     end
   end
 
   # Test suite for GET /slack_users/:id
   describe 'GET /slack_users/:id' do
-    before { get "/slack_users/#{slack_users_id}" }
+    before { get "/slack_users/#{slack_user_id}.json" }
 
     context 'when the record exists' do
       it 'returns the slack_user' do
         expect(json).not_to be_empty
-        expect(json['id']).to eq(todo_id)
+        expect(json['id']).to eq(slack_user_id)
       end
 
       it 'returns status code 200' do
@@ -44,16 +45,18 @@ RSpec.describe "SlackUsers", type: :request do
     end
   end
 
-  # Test suite for POST /todos
-  describe 'POST /slack_user' do
+
+
+  # Test suite for POST /slack_users
+  describe 'POST /slack_users' do
     # valid payload
-    let(:valid_attributes) { { title: 'Learn Elm', created_by: '1' } }
+    let(:valid_attributes) { { slack_user: {slack_user_id: 'R8392DK', name: 'tobygu', real_name: 'Toby Gu'} } }
 
     context 'when the request is valid' do
-      before { post '/todos', params: valid_attributes }
+      before { post '/slack_users.json', params: valid_attributes }
 
-      it 'creates a todo' do
-        expect(json['title']).to eq('Learn Elm')
+      it 'creates a slack user' do
+        expect(json['name']).to eq('tobygu')
       end
 
       it 'returns status code 201' do
@@ -62,41 +65,37 @@ RSpec.describe "SlackUsers", type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/todos', params: { title: 'Foobar' } }
+      before { post '/slack_users', params: { slack_user_id: '' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
       end
 
-      it 'returns a validation failure message' do
-        expect(response.body)
-          .to match(/Validation failed: Created by can't be blank/)
-      end
     end
   end
 
-  # Test suite for PUT /todos/:id
-  describe 'PUT /todos/:id' do
-    let(:valid_attributes) { { title: 'Shopping' } }
+  # Test suite for PUT /slack_users/:id
+  describe 'PUT /slack_users/:id' do
+    let(:valid_attributes) { { slack_user: { slack_user_id: 'R8392DK', name:'guutoby', real_name: 'Gu Toby' } } }
 
     context 'when the record exists' do
-      before { put "/todos/#{todo_id}", params: valid_attributes }
+      before { put "/slack_users/#{slack_user_id}.json", params: valid_attributes }
 
       it 'updates the record' do
-        expect(response.body).to be_empty
+        expect(json['name']).to eq('guutoby')
       end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
     end
   end
 
-  # Test suite for DELETE /todos/:id
-  describe 'DELETE /todos/:id' do
-    before { delete "/todos/#{todo_id}" }
+  # Test suite for DELETE /slack_users/:id
+  describe 'DELETE /slack_users/:id' do
+    before { delete "/slack_users/#{slack_user_id}.json" }
 
-    it 'returns status code 204' do
+    it 'returns status code 200' do
       expect(response).to have_http_status(204)
     end
   end

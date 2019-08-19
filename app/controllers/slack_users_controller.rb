@@ -1,31 +1,75 @@
 class SlackUsersController < ApplicationController
   before_action :set_slack_user, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
+
 
   # GET /slack_users
   # GET /slack_users.json
   def index
+    puts "AT INDEX NOW"
     @slack_users = SlackUser.all
+    respond_to do |format|
+      format.html
+      format.json { render :json => @slack_users }
+    end
   end
 
   # GET /slack_users/1
   # GET /slack_users/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json { render :json => @slack_user }
+    end
   end
 
   # GET /slack_users/new
   def new
     @slack_user = SlackUser.new
+    @slack_user.slack_user_profile.build
   end
 
   # GET /slack_users/1/edit
   def edit
   end
 
+  # POST /slack_users/update
+  def sync(next_cursor = "")
+    get_params = {
+      :token => ENV['SLACK_OAUTH_TOKEN']
+    }
+    if next_cursor
+      get_params[:cursor] = next_cursor
+    end
+
+    @users ||= []
+
+    get_response = HTTP.get(
+      "#{ENV["SLACK_API_URL"]}/users.list",
+      :params => get_params
+    )
+    body = JSON.parse(get_response.to_s)
+
+    @users = (@users + body["members"]).uniq
+    next_cursor = body.dig("response_metadata", "next_cursor")
+
+    #recursively keep building array of users
+    unless next_cursor.blank?
+      sync(next_cursor)
+    else
+      #create records
+      @users.each do |user|
+        create_or_update_user_service = SlackUserService.new(user)
+        create_or_update_user_service.perform
+      end
+      "Synced All users!"
+    end
+  end
+
   # POST /slack_users
   # POST /slack_users.json
   def create
     @slack_user = SlackUser.new(slack_user_params)
-
     respond_to do |format|
       if @slack_user.save
         format.html { redirect_to @slack_user, notice: 'Slack user was successfully created.' }
@@ -69,6 +113,38 @@ class SlackUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def slack_user_params
-      params.require(:slack_user).permit(:slack_user_id, :team_id, :name, :real_name, :color, :tz, :tz_label, :tz_offset, :is_admin, :is_owner, :is_primary_owner, :is_restricted, :is_ultra_restricted, :is_bot, :is_stranger, :updated, :is_app_user, :has_2fa, :locale)
+      params.require(:slack_user).permit(
+        :slack_user_id,
+        :team_id,
+        :name,
+        :real_name,
+        :color,
+        :tz,
+        :tz_label,
+        :tz_offset,
+        :is_admin,
+        :is_owner,
+        :is_primary_owner,
+        :is_restricted,
+        :is_ultra_restricted,
+        :is_bot,
+        :is_stranger,
+        :updated,
+        :is_app_user,
+        :has_2fa,
+        :locale,
+        slack_user_profile_attributes: [
+          :avatar_hash,
+          :real_name,
+          :display_name,
+          :real_name_normalized,
+          :display_name_normalized,
+          :email,
+          :image_original,
+          :status_expiration,
+          :status_emoji,
+          :team
+        ]
+      )
     end
 end
