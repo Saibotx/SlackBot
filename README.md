@@ -71,4 +71,9 @@ $ bundle exec rspec
 ## Live Demo
 
 Currently this app is live and hosted on heroku [here](https://slack-users-challenge.herokuapp.com/)
+
 You can interact with the bot on my personal [Slack workspace](https://tobygu.slack.com/)
+
+To start loading users into the database, just go into any channel and type `/sync-users`
+
+All subsequent users that join or change their profile will have the changes reflected on the live bot DB.
