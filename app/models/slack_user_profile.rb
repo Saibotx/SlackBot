@@ -6,7 +6,7 @@ class SlackUserProfile < ApplicationRecord
   validates_uniqueness_of :slack_user
 
   def map_slack_params_to_attributes(slack_params, slack_user)
-    status_expiration = slack_params["status_expiration"] ?
+    status_expiration = slack_params.dig("status_expiration") ?
       (Time.at(slack_params["status_expiration"])) : nil
 
     {
@@ -20,7 +20,7 @@ class SlackUserProfile < ApplicationRecord
       display_name_normalized: slack_params["real_name_normalized"],
       email: slack_params["email"],
       image_original: slack_params["image_original"],
-      status_expiration: Time.at(slack_params["status_expiration"] || ""),
+      status_expiration: status_expiration,
       status_emoji: slack_params["status_emoji"],
       status_text: slack_params["status_text"],
       team: slack_params["team"],
