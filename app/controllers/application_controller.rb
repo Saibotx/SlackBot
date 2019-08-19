@@ -24,8 +24,8 @@ class ApplicationController < ActionController::Base
     case event_type
     when "user_change"
       user_params = params.dig("event","user")
-      create_or_update_user_service = SlackUserService.new(user_params)
-      create_or_update_user_service.perform
+      slack_user_service = SlackUserService.new(user_params)
+      slack_user_service.perform
     else
       puts "something else"
     end

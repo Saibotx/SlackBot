@@ -6,7 +6,6 @@ class SlackUsersController < ApplicationController
   # GET /slack_users
   # GET /slack_users.json
   def index
-    puts "AT INDEX NOW"
     @slack_users = SlackUser.all
     respond_to do |format|
       format.html
@@ -50,8 +49,8 @@ class SlackUsersController < ApplicationController
     else
       #create records
       @users.each do |user|
-        create_or_update_user_service = SlackUserService.new(user)
-        create_or_update_user_service.perform
+        slack_user_service = SlackUserService.new(user)
+        slack_user_service.perform
       end
       json_response "Synced All users!"
     end
@@ -60,13 +59,18 @@ class SlackUsersController < ApplicationController
   # POST /slack_users
   # POST /slack_users.json
   def create
-    @slack_user = SlackUser.new(slack_user_params)
+    puts "hERERERERE PARAMS ARE #{slack_user_params}"
+    slack_user_service = SlackUserService.new(slack_user_params)
+    slack_user_service.perform
+    @slack_user = slack_user_service.slack_user
     respond_to do |format|
-      if @slack_user.save
+      if @slack_user && !slack_user_service.errors
+        puts "got shit shit shit #{slack_user_service.errors}"
         format.html { redirect_to @slack_user, notice: 'Slack user was successfully created.' }
-        format.json { render :show, status: :created, location: @slack_user }
+        format.json { json_response @slack_user }
       else
-        format.html { render :new }
+        puts "errors are #{slack_user_service.errors}"
+        format.html { render :show }
         format.json { render json: @slack_user.errors, status: :unprocessable_entity }
       end
     end
@@ -78,25 +82,25 @@ class SlackUsersController < ApplicationController
   # PATCH/PUT /slack_users/1
   # PATCH/PUT /slack_users/1.json
   def update
-    respond_to do |format|
-      if @slack_user.update(slack_user_params)
-        format.html { redirect_to @slack_user, notice: 'Slack user was successfully updated.' }
-        format.json { render :show, status: :ok, location: @slack_user }
-      else
-        format.html { render :edit }
-        format.json { render json: @slack_user.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @slack_user.update(slack_user_params)
+    #     format.html { redirect_to @slack_user, notice: 'Slack user was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @slack_user }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @slack_user.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /slack_users/1
   # DELETE /slack_users/1.json
   def destroy
-    @slack_user.destroy
-    respond_to do |format|
-      format.html { redirect_to slack_users_url, notice: 'Slack user was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # @slack_user.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to slack_users_url, notice: 'Slack user was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private
@@ -107,8 +111,9 @@ class SlackUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def slack_user_params
-      params.require(:slack_user).permit(
+      params.permit(
         :slack_user_id,
+        :id,
         :team_id,
         :name,
         :real_name,
@@ -127,7 +132,7 @@ class SlackUsersController < ApplicationController
         :is_app_user,
         :has_2fa,
         :locale,
-        slack_user_profile_attributes: [
+        profile: [
           :avatar_hash,
           :real_name,
           :display_name,
