@@ -59,17 +59,7 @@ RSpec.describe SlackUsersController, type: :controller do
           slack_user = create_user_service.slack_user
         }.to change(SlackUser, :count).by(1)
       end
-
     end
-
-    # context "with invalid params" do
-    #   it "returns a success response (i.e. to display the 'new' template)" do
-    #     create_user_service = SlackUserService.new(invalid_attributes)
-    #     create_user_service.perform
-    #     slack_user = create_user_service.slack_user
-    #     expect(response).to be_successful
-    #   end
-    # end
   end
 
   describe "PUT #update" do

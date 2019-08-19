@@ -2,7 +2,6 @@ class SlackUserService
   attr_reader :slack_user, :slack_user_profile, :errors
 
   def initialize(slack_params)
-    puts("params are #{slack_params}")
     @user_params = slack_params
   end
 

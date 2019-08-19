@@ -5,6 +5,8 @@ RSpec.describe "SlackUsers", type: :request do
   let!(:slack_users) { create_list(:slack_user, 10) }
   let(:slack_user_id) { slack_users.first.id }
 
+
+  # Test Suite for get all slack users list
   describe "GET /slack_users" do
     before { get '/slack_users.json' }
 
@@ -45,7 +47,7 @@ RSpec.describe "SlackUsers", type: :request do
 
 
 
-  # Test suite for POST /slack_users
+  # Test suite for POST /slack_users (Create one)
   describe 'POST /slack_users' do
     # valid payload
     let(:valid_attributes) {
@@ -76,6 +78,31 @@ RSpec.describe "SlackUsers", type: :request do
         expect(response).to have_http_status(422)
       end
 
+    end
+  end
+
+  #test suite for sync users
+  describe 'POST /slack_users/update' do
+    # valid payload
+    let(:valid_attributes) {
+      {
+        "id" => 'R8392DkkkK',
+        "name" => 'tobygooop',
+        "real_name" => 'Toby Guuuuu',
+        "profile" => {
+          'team' => 'DJIJIO'
+        }
+      } }
+    context 'when the request is valid' do
+      before { post '/slack_users/update.json', params: valid_attributes }
+
+      it 'responds with synced all users' do
+        expect(json['message']).to eq('Synced All users!')
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
     end
   end
 

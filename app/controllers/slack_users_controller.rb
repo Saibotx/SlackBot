@@ -52,24 +52,22 @@ class SlackUsersController < ApplicationController
         slack_user_service = SlackUserService.new(user)
         slack_user_service.perform
       end
-      json_response "Synced All users!"
+      message = { "message" => "Synced All users!"}
+      json_response message
     end
   end
 
   # POST /slack_users
   # POST /slack_users.json
   def create
-    puts "hERERERERE PARAMS ARE #{slack_user_params}"
     slack_user_service = SlackUserService.new(slack_user_params)
     slack_user_service.perform
     @slack_user = slack_user_service.slack_user
     respond_to do |format|
       if @slack_user && !slack_user_service.errors
-        puts "got shit shit shit #{slack_user_service.errors}"
         format.html { redirect_to @slack_user, notice: 'Slack user was successfully created.' }
         format.json { json_response @slack_user }
       else
-        puts "errors are #{slack_user_service.errors}"
         format.html { render :show }
         format.json { render json: @slack_user.errors, status: :unprocessable_entity }
       end
