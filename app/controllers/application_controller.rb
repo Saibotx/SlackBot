@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
     if params["challenge"]
       challenge = { :challenge => params["challenge"]}
       json_response challenge
+      return
     end
 
     #distinguish between types of webhooks/events
