@@ -17,20 +17,11 @@ class SlackUsersController < ApplicationController
   # GET /slack_users/1
   # GET /slack_users/1.json
   def show
+    @slack_user_profile = SlackUserProfile.where(slack_user_id: params['id']).first
     respond_to do |format|
       format.html
       format.json { render :json => @slack_user }
     end
-  end
-
-  # GET /slack_users/new
-  def new
-    @slack_user = SlackUser.new
-    @slack_user.slack_user_profile.build
-  end
-
-  # GET /slack_users/1/edit
-  def edit
   end
 
   # POST /slack_users/update
@@ -62,7 +53,7 @@ class SlackUsersController < ApplicationController
         create_or_update_user_service = SlackUserService.new(user)
         create_or_update_user_service.perform
       end
-      "Synced All users!"
+      json_response "Synced All users!"
     end
   end
 

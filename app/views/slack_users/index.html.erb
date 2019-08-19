@@ -51,8 +51,6 @@
         <td><%= slack_user.has_2fa %></td>
         <td><%= slack_user.locale %></td>
         <td><%= link_to 'Show', slack_user %></td>
-        <td><%= link_to 'Edit', edit_slack_user_path(slack_user) %></td>
-        <td><%= link_to 'Destroy', slack_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

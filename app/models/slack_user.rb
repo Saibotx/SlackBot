@@ -7,7 +7,7 @@ class SlackUser < ApplicationRecord
   accepts_nested_attributes_for :slack_user_profile
 
   # validations
-  validates_presence_of :slack_user_id, :name, :real_name
+  validates_presence_of :slack_user_id
   validates_uniqueness_of :slack_user_id
 
 
@@ -30,7 +30,8 @@ class SlackUser < ApplicationRecord
       updated: slack_params["updated"],
       is_app_user: slack_params["is_app_user"],
       has_2fa: slack_params["has_2fa"],
-      locale: slack_params["locale"]
+      locale: slack_params["locale"],
+      deleted: slack_params["deleted"]
     }
   end
 end

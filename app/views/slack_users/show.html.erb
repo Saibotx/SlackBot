@@ -1,99 +1,181 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Slack user:</strong>
-  <%= @slack_user.slack_user_id %>
-</p>
+<div style="display:flex">
+  <div style="flex:1">
+    <p>
+      <strong>Slack user:</strong>
+      <%= @slack_user.slack_user_id %>
+    </p>
 
-<p>
-  <strong>Team:</strong>
-  <%= @slack_user.team_id %>
-</p>
+    <p>
+      <strong>Team:</strong>
+      <%= @slack_user.team_id %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @slack_user.name %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @slack_user.name %>
+    </p>
 
-<p>
-  <strong>Real name:</strong>
-  <%= @slack_user.real_name %>
-</p>
+    <p>
+      <strong>Real name:</strong>
+      <%= @slack_user.real_name %>
+    </p>
 
-<p>
-  <strong>Color:</strong>
-  <%= @slack_user.color %>
-</p>
+    <p>
+      <strong>Color:</strong>
+      <%= @slack_user.color %>
+    </p>
 
-<p>
-  <strong>Tz:</strong>
-  <%= @slack_user.tz %>
-</p>
+    <p>
+      <strong>Tz:</strong>
+      <%= @slack_user.tz %>
+    </p>
 
-<p>
-  <strong>Tz label:</strong>
-  <%= @slack_user.tz_label %>
-</p>
+    <p>
+      <strong>Tz label:</strong>
+      <%= @slack_user.tz_label %>
+    </p>
 
-<p>
-  <strong>Tz offset:</strong>
-  <%= @slack_user.tz_offset %>
-</p>
+    <p>
+      <strong>Tz offset:</strong>
+      <%= @slack_user.tz_offset %>
+    </p>
 
-<p>
-  <strong>Is admin:</strong>
-  <%= @slack_user.is_admin %>
-</p>
+    <p>
+      <strong>Is admin:</strong>
+      <%= @slack_user.is_admin %>
+    </p>
 
-<p>
-  <strong>Is owner:</strong>
-  <%= @slack_user.is_owner %>
-</p>
+    <p>
+      <strong>Is owner:</strong>
+      <%= @slack_user.is_owner %>
+    </p>
 
-<p>
-  <strong>Is primary owner:</strong>
-  <%= @slack_user.is_primary_owner %>
-</p>
+    <p>
+      <strong>Is primary owner:</strong>
+      <%= @slack_user.is_primary_owner %>
+    </p>
 
-<p>
-  <strong>Is restricted:</strong>
-  <%= @slack_user.is_restricted %>
-</p>
+    <p>
+      <strong>Is restricted:</strong>
+      <%= @slack_user.is_restricted %>
+    </p>
 
-<p>
-  <strong>Is ultra restricted:</strong>
-  <%= @slack_user.is_ultra_restricted %>
-</p>
+    <p>
+      <strong>Is ultra restricted:</strong>
+      <%= @slack_user.is_ultra_restricted %>
+    </p>
 
-<p>
-  <strong>Is bot:</strong>
-  <%= @slack_user.is_bot %>
-</p>
+    <p>
+      <strong>Is bot:</strong>
+      <%= @slack_user.is_bot %>
+    </p>
 
-<p>
-  <strong>Is stranger:</strong>
-  <%= @slack_user.is_stranger %>
-</p>
+    <p>
+      <strong>Is stranger:</strong>
+      <%= @slack_user.is_stranger %>
+    </p>
 
-<p>
-  <strong>Updated:</strong>
-  <%= @slack_user.updated %>
-</p>
+    <p>
+      <strong>Updated:</strong>
+      <%= @slack_user.updated %>
+    </p>
 
-<p>
-  <strong>Is app user:</strong>
-  <%= @slack_user.is_app_user %>
-</p>
+    <p>
+      <strong>Is app user:</strong>
+      <%= @slack_user.is_app_user %>
+    </p>
 
-<p>
-  <strong>Has 2fa:</strong>
-  <%= @slack_user.has_2fa %>
-</p>
+    <p>
+      <strong>Has 2fa:</strong>
+      <%= @slack_user.has_2fa %>
+    </p>
 
-<p>
-  <strong>Locale:</strong>
-  <%= @slack_user.locale %>
-</p>
+    <p>
+      <strong>Locale:</strong>
+      <%= @slack_user.locale %>
+    </p>
+  </div>
+
+
+  <div style="flex:1">
+    <p>
+      <strong>Profile ID:</strong>
+      <%= @slack_user_profile.id %>
+    </p>
+
+    <p>
+      <strong>Avatar Hash:</strong>
+      <%= @slack_user_profile.avatar_hash %>
+    </p>
+
+    <p>
+      <strong>Status Text:</strong>
+      <%= @slack_user_profile.status_text %>
+    </p>
+
+    <p>
+      <strong>Status Emoji:</strong>
+      <%= @slack_user_profile.status_emoji %>
+    </p>
+
+    <p>
+      <strong>Status Expiration:</strong>
+      <%= @slack_user_profile.status_expiration %>
+    </p>
+
+    <p>
+      <strong>Real Name:</strong>
+      <%= @slack_user_profile.real_name %>
+    </p>
+
+    <p>
+      <strong>Display Name:</strong>
+      <%= @slack_user_profile.display_name %>
+    </p>
+
+    <p>
+      <strong>Real Name Normalized:</strong>
+      <%= @slack_user_profile.real_name_normalized %>
+    </p>
+
+    <p>
+      <strong>Display Name Normalized:</strong>
+      <%= @slack_user_profile.display_name_normalized %>
+    </p>
+
+    <p>
+      <strong>Email:</strong>
+      <%= @slack_user_profile.email %>
+    </p>
+
+    <p>
+      <strong>Team:</strong>
+      <%= @slack_user_profile.team %>
+    </p>
+
+    <p>
+      <strong> Title:</strong>
+      <%= @slack_user_profile.title %>
+    </p>
+
+    <p>
+      <strong>Phone:</strong>
+      <%= @slack_user_profile.phone %>
+    </p>
+
+    <p>
+      <strong>Skype:</strong>
+      <%= @slack_user_profile.skype %>
+    </p>
+  </div>
+
+</div>
+
+<hr>
+<hr>
+
 
 <%= link_to 'Edit', edit_slack_user_path(@slack_user) %> |
 <%= link_to 'Back', slack_users_path %>

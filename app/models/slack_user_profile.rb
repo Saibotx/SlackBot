@@ -2,7 +2,7 @@ class SlackUserProfile < ApplicationRecord
   # model association
   belongs_to :slack_user
   # validation
-  validates_presence_of :real_name, :display_name, :team, :slack_user
+  validates_presence_of :team, :slack_user
   validates_uniqueness_of :slack_user
 
   def map_slack_params_to_attributes(slack_params, slack_user)
