@@ -39,7 +39,6 @@ class SlackUsersController < ApplicationController
       :params => get_params
     )
     body = JSON.parse(get_response.to_s)
-    puts "body is #{body}"
     @users = (@users + body["members"]).uniq
     next_cursor = body.dig("response_metadata", "next_cursor")
 
