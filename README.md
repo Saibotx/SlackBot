@@ -2,7 +2,7 @@
 
 A slackbot that maintains and constantly syncs a database of users with that of a Slack workspace!
 
-##Getting Started
+## Getting Started
 
 ### Prerequisites
 You'll need ruby version >=2.2.2, rails version 5 and PostgreSQL 10.
