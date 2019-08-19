@@ -24,7 +24,7 @@ RSpec.describe "slack_users/index", type: :view do
         :locale => "Locale"
       ),
       SlackUser.create!(
-        :slack_user_id => "Slack User",
+        :slack_user_id => "Slack User 2",
         :team_id => "Team",
         :name => "Name",
         :real_name => "Real Name",
@@ -48,7 +48,7 @@ RSpec.describe "slack_users/index", type: :view do
 
   it "renders a list of slack_users" do
     render
-    assert_select "tr>td", :text => "Slack User".to_s, :count => 2
+    assert_select "tr>td", :text => "Slack User".to_s, :count => 1
     assert_select "tr>td", :text => "Team".to_s, :count => 2
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "Real Name".to_s, :count => 2

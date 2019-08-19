@@ -15,5 +15,8 @@ class SlackUserService
     slack_user_profile.attributes = slack_user_profile
       .map_slack_params_to_attributes(user_profile, slack_user)
     slack_user_profile.save
+
+    #return array of what we just generated
+    [slack_user, slack_user_profile]
   end
 end

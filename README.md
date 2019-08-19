@@ -1,24 +1,69 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A slackbot that maintains and constantly syncs a database of users with that of a Slack workspace!
 
-Things you may want to cover:
+##Getting Started
 
-* Ruby version
+### Prerequisites
+You'll need ruby version >=2.2.2, rails version 5 and PostgreSQL 10.
 
-* System dependencies
 
-* Configuration
+#### Ruby
+If you're not up to date, use a version manager to update. Here are two popular version managers.
 
-* Database creation
+```
+# when using rbenv
+$ rbenv install 2.3.1
+# set 2.3.1 as the global version
+$ rbenv global 2.3.1
+```
 
-* Database initialization
+```
+# when using rvm
+$ rvm install 2.3.1
+# set 2.3.1 as the global version
+$ rvm use 2.3.1
+```
 
-* How to run the test suite
+#### Rails
+If rails is not up to date, you can do the following:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+$ gem update rails
+```
 
-* Deployment instructions
+#### PostgreSQL 10
+`https://installvirtual.com/install-postgresql-10-on-mac-os-x/`
 
-* ...
+
+### Clonining and installing dependencies.
+
+This is pretty standard stuff. Simply
+```
+$ git clone git@github.com:Saibotx/SlackBot.git
+$ bundle install
+```
+
+#### Setting enviornment variables
+Head over to your [Slack App API Dashboard](https://api.slack.com/apps) and grab your credentials to put in `.env.development`
+
+#### Now set up database and run!
+```
+$ rake db:migrate
+$ rails s
+```
+
+#### App Tunneling
+This local app needs to be accessible from the public Internet in order to install it on a Slack Workspace
+
+For example with [ngrok](https://ngrok.com/), run this command to set up proxying to our port:
+
+```
+ngrok http 3000
+```
+
+
+### Tests
+```
+$ bundle exec rspec
+```

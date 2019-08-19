@@ -7,6 +7,4 @@ RSpec.describe SlackUser, type: :model do
   # Validation tests
   # ensure columns are present before saving
   it { should validate_presence_of(:slack_user_id) }
-  it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:real_name) }
 end

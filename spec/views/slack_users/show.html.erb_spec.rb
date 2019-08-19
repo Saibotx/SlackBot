@@ -22,6 +22,9 @@ RSpec.describe "slack_users/show", type: :view do
       :has_2fa => false,
       :locale => "Locale"
     ))
+    @slack_user_profile = assign(:slack_user_profile), SlackUserProfile.create!(
+      :slack_user => @slack_user
+    )
   end
 
   it "renders attributes in <p>" do

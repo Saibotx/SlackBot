@@ -6,8 +6,5 @@ RSpec.describe SlackUserProfile, type: :model do
   it { should belong_to(:slack_user) }
   # Validation test
   # ensure column name is present before saving
-  it { should validate_presence_of(:real_name) }
-  it { should validate_presence_of(:display_name) }
-  it { should validate_presence_of(:email) }
   it { should validate_presence_of(:team) }
 end
