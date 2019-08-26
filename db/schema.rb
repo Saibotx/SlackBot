@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_131542) do
+ActiveRecord::Schema.define(version: 2019_08_26_150801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "channels", force: :cascade do |t|
+    t.string "slack_channel_id"
+    t.string "name"
+    t.bigint "slack_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slack_user_id"], name: "index_channels_on_slack_user_id"
+  end
 
   create_table "slack_user_profiles", force: :cascade do |t|
     t.string "avatar_hash"
@@ -63,5 +72,6 @@ ActiveRecord::Schema.define(version: 2019_08_19_131542) do
     t.index ["slack_user_profile_id"], name: "index_slack_users_on_slack_user_profile_id"
   end
 
+  add_foreign_key "channels", "slack_users"
   add_foreign_key "slack_user_profiles", "slack_users"
 end

@@ -1,6 +1,7 @@
 class SlackUser < ApplicationRecord
   # model association
   has_one :slack_user_profile, dependent: :destroy
+  has_many :channels, dependent: :destroy
 
   # self.primary_key = 'slack_user_id'
 
@@ -33,5 +34,12 @@ class SlackUser < ApplicationRecord
       locale: slack_params["locale"],
       deleted: slack_params["deleted"]
     }
+  end
+  def joined_channel
+
+  end
+
+  def left_channel
+    
   end
 end

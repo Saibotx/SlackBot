@@ -10,8 +10,10 @@ class ApplicationController < ActionController::Base
   def create
     #all POST incoming requests must be verified
     unless request_verified?
-      puts "unauthorized"
+      puts "unauthorized -- is this happening?"
+
       json_response :status => :unauthorized
+      return
     end
     #used for setting up endpoint from slack dashboard.
     if params["challenge"]
@@ -22,15 +24,28 @@ class ApplicationController < ActionController::Base
 
     #distinguish between types of webhooks/events
     event_type = params.dig("event", "type")
+
+    puts "params are #{params}"
     case event_type
     when "user_change"
-      user_params = params.dig("event","user")
-      slack_user_service = SlackUserService.new(user_params)
+      parameters = params.dig("event", "user")
+      slack_user_service = SlackUserService.new(parameters)
       slack_user_service.perform
+    when "member_left_channel"
+      puts "here - left"
+      parameters = params.dig("event")
+      slack_channel_service = SlackChannelService.new(parameters, event_type)
+      slack_channel_service.perform
+    when "member_joined_channel"
+      puts "here - joined"
+      parameters = params.dig("event")
+      slack_channel_service = SlackChannelService.new(parameters, event_type)
+      slack_channel_service.perform
     else
       puts "something else"
     end
     json_response "success"
+    return
   end
 
   private

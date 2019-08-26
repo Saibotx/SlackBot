@@ -17,6 +17,7 @@ class SlackUsersController < ApplicationController
   # GET /slack_users/1.json
   def show
     @slack_user_profile = SlackUserProfile.where(slack_user_id: params['id']).first
+    @slack_user_channels = Channel.where(slack_user_id: params['id'])
     respond_to do |format|
       format.html
       format.json { render :json => @slack_user }

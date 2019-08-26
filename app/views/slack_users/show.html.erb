@@ -182,6 +182,14 @@
       <img src="<%= @slack_user_profile.image_original %>" style="width: 200.00px;">
     </p>
 
+    <p>
+      <strong>Channels:</strong>
+        <% @slack_user_channels.each do |channel| %>
+          <p><%= channel.slack_channel_id %></p>
+        <% end %>
+      <br>
+    </p>
+
   </div>
 
 </div>
